@@ -13,7 +13,9 @@
     <form action="/login/verify" method="post" >
     <fieldset>
             <br>
-            <div class="alert alert-danger"> You have 3 consecutive invalid login attempts. Please try again after </div>
+            <?php
+            echo '<div class="alert alert-danger"> You have exceeded the maximum number of login attempts. Please try again after ' . $_SESSION['lockout_time'] . '</div>'
+            ?>
         <button type="submit" class="btn btn-primary">Back to Login page</button>
     </fieldset>
     </form> 

@@ -28,6 +28,15 @@ class User {
         $statement->execute();
     }
 
+     public function lockoutTime() {
+         $db = db_connect();
+         $statement = $db->prepare("SELECT DATE_ADD(attempt_dt, INTERVAL 60 SECOND) AS attempt_plus_60 FROM login_attempts ORDER BY attempt_dt DESC LIMIT 1;");
+         $statement->execute();
+         $rows = $statement->fetch(PDO::FETCH_ASSOC);
+
+         return $rows['attempt_plus_60'];
+     }
+
     public function authenticate($username, $password) {
         /*
          * if username and password good then
@@ -56,8 +65,16 @@ class User {
 			}
       // insert failed login attempt
       $this->insertLog($username, 0);
-			header('Location: /login');
-			die;
+      if ($_SESSION['failedAuth'] >= 3) {
+          $lockout_time = $this->lockoutTime();
+          $_SESSION['lockout_time'] = $lockout_time;
+          header('Location: /lockout');
+          die;
+      } else {
+          header('Location: /login');
+          die;
+      }
+			
 		}
     }
 
@@ -76,5 +93,6 @@ class User {
 
       header('Location: /login');
     }
+
 
 }
