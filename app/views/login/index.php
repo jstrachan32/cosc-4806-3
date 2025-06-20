@@ -22,6 +22,9 @@
 			</div>
             <br>
 		    <button type="submit" class="btn btn-primary">Login</button>
+				<a href="/create">
+						<button type="button" class="btn btn-secondary">Sign Up</button>
+				</a>
 		</fieldset>
 		</form> 
 	</div>
