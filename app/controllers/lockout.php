@@ -6,5 +6,10 @@ class Lockout extends Controller {
       $this->view('lockout/index');
     }
 
+    public function verify() {
+        $user = $this->model('User');
+        $user->checkLockout();
+    }
+
 
 }

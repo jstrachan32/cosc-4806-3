@@ -94,5 +94,18 @@ class User {
       header('Location: /login');
     }
 
+     public function checkLockout(){
+        $sessionLockoutTime = $_SESSION['lockout_time'];
+        $currentTime = time();
+        $lockoutTime = strtotime($sessionLockoutTime);
+
+       if ($currentTime > $lockoutTime) {
+           unset($_SESSION['lockout_time']);
+           header('Location: /login');
+       } else {
+           header('Location: /lockout');
+       }
+     }
+
 
 }

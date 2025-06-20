@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-sm-auto">
-    <form action="/login/verify" method="post" >
+    <form action="/lockout/verify" method="post" >
     <fieldset>
             <br>
             <?php
