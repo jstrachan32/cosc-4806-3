@@ -22,8 +22,7 @@
 				<?php
 				 	 if (isset($_SESSION['failedAuth']) && $_SESSION['failedAuth'] < 3) {
 						 echo '<br><div class="alert alert-danger"> Invalid username or password. Please try again.</div>';}
-					else if (isset($_SESSION['failedAuth']) && $_SESSION['failedAuth'] >= 3) {
-						echo '<br><div class="alert alert-danger"> Too many invalid login attempts. Please try again later.</div>';};
+
 				?>
 			</div>
             <br>
