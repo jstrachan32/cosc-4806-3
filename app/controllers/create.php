@@ -6,7 +6,7 @@ class Create extends Controller {
 	    $this->view('create/index');
     }
 
-    public function create(){
+    public function register(){
       $username = $_REQUEST['username'];
       $password = $_REQUEST['password'];
 
