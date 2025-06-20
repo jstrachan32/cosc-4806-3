@@ -47,4 +47,18 @@ class User {
 		}
     }
 
+    public function signup($username, $password){
+      // create new user
+      $username = strtolower($username);
+      // hash password before storing to db
+      $hash = password_hash($password, PASSWORD_DEFAULT);
+      
+      $db = db_connect();
+      
+      $statement = $db->prepare("INSERT INTO users (username, password) VALUES (:username, :hash)");
+      $statement->bindValue(':username', $username);
+      $statement->bindValue(':hash', $hash);
+      $statement->execute();
+    }
+
 }
