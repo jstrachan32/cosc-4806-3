@@ -59,6 +59,8 @@ class User {
       $statement->bindValue(':username', $username);
       $statement->bindValue(':hash', $hash);
       $statement->execute();
+
+      header('Location: /login');
     }
 
 }
