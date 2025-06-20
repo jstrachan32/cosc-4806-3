@@ -18,6 +18,16 @@ class User {
       return $rows;
     }
 
+    public function insertLog($username, $success) {
+        $username = strtolower($username);
+        $db = db_connect();
+
+        $statement = $db->prepare("INSERT INTO login_attempts (username, attempt_success, attempt_dt) VALUES (:username,:success, NOW())");
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':success', $success);
+        $statement->execute();
+    }
+
     public function authenticate($username, $password) {
         /*
          * if username and password good then
@@ -34,6 +44,8 @@ class User {
 			$_SESSION['auth'] = 1;
 			$_SESSION['username'] = ucwords($username);
 			unset($_SESSION['failedAuth']);
+      // insert into login_attempts table
+      $this->insertLog($username, 1);
 			header('Location: /home');
 			die;
 		} else {
@@ -42,6 +54,8 @@ class User {
 			} else {
 				$_SESSION['failedAuth'] = 1;
 			}
+      // insert failed login attempt
+      $this->insertLog($username, 0);
 			header('Location: /login');
 			die;
 		}
