@@ -29,6 +29,9 @@
       </div>
             <br>
         <button type="submit" class="btn btn-primary">Sign Up</button>
+        <a href="/login">
+            <button type="button" class="btn btn-secondary">Already have an account? Login</button>
+        </a>
     </fieldset>
     </form> 
   </div>
