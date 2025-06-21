@@ -14,7 +14,7 @@
     <fieldset>
             <br>
             <?php
-            echo '<div class="alert alert-danger"> You have exceeded the maximum number of login attempts. Please try again after ' . $_SESSION['lockout_time'] . '</div>'
+            echo '<div class="alert alert-danger"> You have exceeded the maximum number of login attempts. Please try again in 60 seconds. You will be able to login after ' . $_SESSION['lockout_time'] . '</div>'
             ?>
         <button type="submit" class="btn btn-primary">Back to Login page</button>
     </fieldset>
