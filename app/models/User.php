@@ -85,14 +85,29 @@ class User {
       $hash = password_hash($password, PASSWORD_DEFAULT);
       
       $db = db_connect();
-      
-      $statement = $db->prepare("INSERT INTO users (username, password) VALUES (:username, :hash)");
-      $statement->bindValue(':username', $username);
-      $statement->bindValue(':hash', $hash);
-      $statement->execute();
 
-      header('Location: /login');
-      die;
+      // check if username already exists
+      $statement = $db->prepare("SELECT * FROM users WHERE username = :username");
+      $statement->bindValue(':username', $username); 
+      $statement->execute();
+      $rows = $statement->fetch(PDO::FETCH_ASSOC);
+
+      if ($rows) {
+        $_SESSION['usernameExists'] = 1;
+        header('Location: /create');
+        die;
+      } else {
+        unset($_SESSION['usernameExists']);
+        $statement = $db->prepare("INSERT INTO users (username, password) VALUES (:username, :hash)");
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':hash', $hash);
+        $statement->execute();
+
+        header('Location: /login');
+        die;
+      }
+      
+
     }
 
      public function checkLockout(){

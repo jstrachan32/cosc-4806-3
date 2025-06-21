@@ -19,6 +19,10 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input required type="password" class="form-control" name="password">
+          <?php
+               if (isset($_SESSION['usernameExists']) == 1) {
+                   echo '<br><div class="alert alert-danger"> Username already exists. Please enter a different username.</div>';}
+          ?>
       </div>
             <br>
         <button type="submit" class="btn btn-primary">Sign Up</button>
