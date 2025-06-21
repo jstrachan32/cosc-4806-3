@@ -78,6 +78,22 @@ class User {
 		}
     }
 
+    public function checkUsername($username){
+        $username = strtolower($username);
+        $db = db_connect();
+        // check if username already exists
+        $statement = $db->prepare("SELECT * FROM users WHERE username = :username");
+        $statement->bindValue(':username', $username); 
+        $statement->execute();
+        $rows = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($rows) {
+          $_SESSION['usernameExists'] = 1;
+          header('Location: /create');
+          die;
+        } else {
+          unset($_SESSION['usernameExists']); }
+    }
+
     public function signup($username, $password){
       // create new user
       $username = strtolower($username);
@@ -86,18 +102,6 @@ class User {
       
       $db = db_connect();
 
-      // check if username already exists
-      $statement = $db->prepare("SELECT * FROM users WHERE username = :username");
-      $statement->bindValue(':username', $username); 
-      $statement->execute();
-      $rows = $statement->fetch(PDO::FETCH_ASSOC);
-
-      if ($rows) {
-        $_SESSION['usernameExists'] = 1;
-        header('Location: /create');
-        die;
-      } else {
-        unset($_SESSION['usernameExists']);
         $statement = $db->prepare("INSERT INTO users (username, password) VALUES (:username, :hash)");
         $statement->bindValue(':username', $username);
         $statement->bindValue(':hash', $hash);
@@ -107,8 +111,6 @@ class User {
         die;
       }
       
-
-    }
 
      public function checkLockout(){
         $sessionLockoutTime = $_SESSION['lockout_time'];

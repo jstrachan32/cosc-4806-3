@@ -7,8 +7,12 @@ class Create extends Controller {
     }
 
     public function register(){
+      $user = $this->model('User');
+      
       $username = $_REQUEST['username'];
       $password = $_REQUEST['password'];
+
+      $user->checkUsername($username);
 
       if (!preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password) || strlen($password) < 8) {
         $_SESSION['passwordError'] = 1;
@@ -17,7 +21,7 @@ class Create extends Controller {
       } else {
         unset($_SESSION['passwordError']);
       }
-      $user = $this->model('User');
+      
       $user->signup($username, $password); 
     }
 }
