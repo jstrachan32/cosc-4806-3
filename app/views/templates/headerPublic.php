@@ -12,7 +12,6 @@ if (isset($_SESSION['lockout_time']) && $path != '/lockout') {
     die;
 }
 
-
 ?>
 
 <!DOCTYPE html>
