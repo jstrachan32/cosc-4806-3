@@ -1,7 +1,18 @@
 <?php
 if (isset($_SESSION['auth']) == 1) {
     header('Location: /home');
+    die;
 }
+
+// check if lockout exists and if current path is not lockout
+// prevents redirect to /login or /create when lockout is active
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+if (isset($_SESSION['lockout_time']) && $path != '/lockout') {
+    header('Location: /lockout');
+    die;
+}
+
+
 ?>
 
 <!DOCTYPE html>
