@@ -92,6 +92,7 @@ class User {
       $statement->execute();
 
       header('Location: /login');
+      die;
     }
 
      public function checkLockout(){
@@ -101,9 +102,12 @@ class User {
 
        if ($currentTime > $lockoutTime) {
            unset($_SESSION['lockout_time']);
+           unset($_SESSION['failedAuth']);
            header('Location: /login');
+           die;
        } else {
            header('Location: /lockout');
+           die;
        }
      }
 
