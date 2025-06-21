@@ -22,6 +22,9 @@
           <?php
                if (isset($_SESSION['usernameExists']) == 1) {
                    echo '<br><div class="alert alert-danger"> Username already exists. Please enter a different username.</div>';}
+          else if (isset($_SESSION['passwordError']) == 1) {
+                echo '<br><div class="alert alert-danger"> Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.</div>';
+          }
           ?>
       </div>
             <br>
