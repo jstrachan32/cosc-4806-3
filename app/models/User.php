@@ -106,7 +106,8 @@ class User {
         $statement->bindValue(':username', $username);
         $statement->bindValue(':hash', $hash);
         $statement->execute();
-
+      
+        $_SESSION['signupSuccess'] = 1;
         header('Location: /login');
         die;
       }

@@ -7,6 +7,10 @@
             </div>
         </div>
     </div>
+	<?php
+		 if (isset($_SESSION['signupSuccess'])) {
+			 echo '<br><div class="alert alert-success"> Sign up successful. Please log in with your credentials.</div>';}
+	?>
 
 <div class="row">
     <div class="col-sm-auto">

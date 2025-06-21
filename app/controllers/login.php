@@ -7,6 +7,7 @@ class Login extends Controller {
     }
     
     public function verify(){
+			unset($_SESSION['signupSuccess']);
 			$username = $_REQUEST['username'];
 			$password = $_REQUEST['password'];
 		

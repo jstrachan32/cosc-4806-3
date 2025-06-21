@@ -7,6 +7,7 @@ class Create extends Controller {
     }
 
     public function register(){
+      unset($_SESSION['failedAuth']);
       $user = $this->model('User');
       
       $username = $_REQUEST['username'];
